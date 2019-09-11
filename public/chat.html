@@ -51,14 +51,19 @@
 
     const messageForm = document.getElementById("message-form");
     const userMessage = document.getElementById("user-message");
+    const messageArea = document.getElementById("messages");
 
     messageForm.addEventListener("submit", event => {
       event.preventDefault();
-      
+
       const newMessage = userMessage.value;
       socket.emit("newMessage", { text: newMessage });
-      
+
       userMessage.value = "";
+    });
+
+    socket.on("messageToClient", msg => {
+      messageArea.innerHTML += `<li>${msg.text}</li>`;
     });
   </script>
 </html>
