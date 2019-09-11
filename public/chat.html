@@ -4,9 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      input {
+        width: 95%;
+        height: 3em;
+      }
+    </style>
+
     <title>Chat</title>
   </head>
-  <body></body>
+  <body>
+    <div class="containver">
+      <div class="row">
+        <div class="col-sm-12">
+          <form id="messae-form">
+            <div class="col-sm-10">
+              <input
+                type="text"
+                id="user-message"
+                placeholder="Enter your message"
+              />
+            </div>
+            <div class="col-sm-2">
+              <input type="submit" class="btn btn-primary" value="Send" />
+            </div>
+          </form>
+          <ul id="messages"></ul>
+        </div>
+      </div>
+    </div>
+  </body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io("http://localhost:9000");
