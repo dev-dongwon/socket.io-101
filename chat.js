@@ -9,6 +9,6 @@ const io = socketio(expressServer);
 io.on("connection", socket => {
   socket.on("newMessage", msg => {
     // console.log(msg);
-    io.emit('messageToClient', {text: msg.text})
+    io.emit('messageToClient', {text: msg.text, id: msg.id})
   });
 });

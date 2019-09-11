@@ -16,6 +16,12 @@
         width: 95%;
         height: 3em;
       }
+
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
     </style>
 
     <title>Chat</title>
@@ -57,13 +63,13 @@
       event.preventDefault();
 
       const newMessage = userMessage.value;
-      socket.emit("newMessage", { text: newMessage });
+      socket.emit("newMessage", { text: newMessage, id: socket.id });
 
       userMessage.value = "";
     });
 
     socket.on("messageToClient", msg => {
-      messageArea.innerHTML += `<li>${msg.text}</li>`;
+      messageArea.innerHTML += `<li>${msg.id} : ${msg.text}</li>`;
     });
   </script>
 </html>
