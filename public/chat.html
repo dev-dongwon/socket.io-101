@@ -24,7 +24,7 @@
     <div class="containver">
       <div class="row">
         <div class="col-sm-12">
-          <form id="messae-form">
+          <form id="message-form">
             <div class="col-sm-10">
               <input
                 type="text"
@@ -44,9 +44,21 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io("http://localhost:9000");
-    socket.on("messageFromServer", dataFromServer => {
-      console.log(dataFromServer);
-      socket.emit("dataToServer", { data: "hey, I'm client" });
+
+    socket.on("connect", () => {
+      console.log(socket.id);
+    });
+
+    const messageForm = document.getElementById("message-form");
+    const userMessage = document.getElementById("user-message");
+
+    messageForm.addEventListener("submit", event => {
+      event.preventDefault();
+      
+      const newMessage = userMessage.value;
+      socket.emit("newMessage", { text: newMessage });
+      
+      userMessage.value = "";
     });
   </script>
 </html>
