@@ -1,24 +1,52 @@
+const ChatSocket = class {
+  constructor() {
+    this.socket = io("http://localhost:9000");
+    this.messageForm = document.getElementById("message-form");
+    this.userMessage = document.getElementById("user-message");
+    this.messageArea = document.getElementById("messages");
+  }
 
+  connect() {
+    this.socket.on("connect", () => {
+      this.socket.emit("newPerson", { id: this.socket.id });
+    });
+  }
 
-const socket = io("http://localhost:9000");
+  submit() {
+    this.messageForm.addEventListener("submit", event => {
+      event.preventDefault();
 
-socket.on("connect", () => {
-  console.log(socket.id);
-});
+      const newMessage = this.userMessage.value;
+      this.socket.emit("newMessage", { text: newMessage, id: this.socket.id });
 
-const messageForm = document.getElementById("message-form");
-const userMessage = document.getElementById("user-message");
-const messageArea = document.getElementById("messages");
+      this.userMessage.value = "";
+    });
+  }
 
-messageForm.addEventListener("submit", event => {
-  event.preventDefault();
+  getMessageByType({type, id, text}) {
+    if (type === 'enter') {
+      return `${id} 님이 입장하셨습니다`
+    } 
+    
+    if (type === 'texting') {
+      return `${id} : ${text}`
+    }
+  }
 
-  const newMessage = userMessage.value;
-  socket.emit("newMessage", { text: newMessage, id: socket.id });
+  receiveMessage() {
+    this.socket.on("messageToClient", msg => {
+      this.messageArea.innerHTML += `<li>${this.getMessageByType(msg)}</li>`;
+    });
+  }
 
-  userMessage.value = "";
-});
+  run() {
+    this.connect();
+    this.submit();
+    this.receiveMessage();
+  }
+};
 
-socket.on("messageToClient", msg => {
-  messageArea.innerHTML += `<li>${msg.id} : ${msg.text}</li>`;
-});
+window.onload = () => {
+  const chatSocket = new ChatSocket();
+  chatSocket.run();
+}
