@@ -1,0 +1,23 @@
+{
+  "name": "socket.io-101",
+  "version": "1.0.0",
+  "description": "socket.io 101 - socket.io를 프로젝트에 적용하기 전 기본 동작 익히기",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-dongwon/socket.io-101.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-dongwon/socket.io-101/issues"
+  },
+  "homepage": "https://github.com/dev-dongwon/socket.io-101#readme",
+  "dependencies": {
+    "socket.io": "^2.2.0"
+  }
+}
