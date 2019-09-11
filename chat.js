@@ -7,8 +7,7 @@ app.use(express.static(__dirname + "/public"));
 const expressServer = app.listen(9000);
 const io = socketio(expressServer);
 io.on("connection", socket => {
-  socket.emit("messageFromServer", { data: "welcome to socket.io server" });
-  socket.on("dataToServer", dataFromClient => {
+  socket.on("newMessage", dataFromClient => {
     console.log(dataFromClient);
   });
 });
