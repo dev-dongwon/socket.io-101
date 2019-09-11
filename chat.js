@@ -9,6 +9,10 @@ const io = socketio(expressServer);
 io.on("connection", socket => {
   socket.on("newMessage", msg => {
     // console.log(msg);
-    io.emit('messageToClient', {text: msg.text, id: msg.id})
+    io.emit('messageToClient', {type: 'texting', text: msg.text, id: msg.id})
+  });
+  socket.on("newPerson", msg => {
+    // console.log(msg);
+    io.emit('messageToClient', {type: 'enter', id : msg.id})
   });
 });
